@@ -19,7 +19,7 @@ class customerClass:
 		self.var_contact=StringVar()
 		
 		#===search area=========
-		lbl_search=Label(self.root, text="Customer No.", bg="white", font=("goudy old style", 15))
+		lbl_search=Label(self.root, text="Customer No", bg="white", font=("goudy old style", 15))
 		lbl_search.place(x=295, y=80)
 	
 
