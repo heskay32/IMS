@@ -181,7 +181,6 @@ class smsClass:
 			self.btn_send_to_recent10.config(state=NORMAL)
 
 	def clear(self):
-		self.txt_phone.set("+234")
 		self.txt_msg.delete('1.0',END)
 		self.var_choice.set("single")
 
