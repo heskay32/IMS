@@ -6,6 +6,9 @@ import time
 import os
 import tempfile
 from credit import creditClass
+from sms import smsClass
+
+
 class BillClass:
 	def __init__(self,root):
 		self.root=root
@@ -16,6 +19,7 @@ class BillClass:
 		#===================================================================
 		self.cart_list=[]
 		self.chk_print=0
+
 
 		#====title===
 		self.icon_title=PhotoImage(file="images/logoo.png")
@@ -28,10 +32,15 @@ class BillClass:
 
 		#===credit button====
 		btn_credit = Button(self.root, command=self.credit, bg="#4b100a", fg='white', text="On Credit", font=("times new roman", 12, "bold"), cursor="hand2", bd=1)
-		btn_credit.place(x=1050, y=16, height=40, width=120)
+		btn_credit.place(x=1100, y=16, height=40, width=100)
+
+		#===sms button=====
+		btn_sms = Button(self.root, command=self.sms, bg="green", fg='white', text="Send SMS", font=("times new roman", 12, "bold"), cursor="hand2", bd=1)
+		btn_sms.place(x=980, y=16, height=40, width=100)
+
 
 		#===clock and date=======
-		self.lbl_clock = Label(self.root, text="Welcome to King's Power Tech Point Of Sales\t\t Date: DD-MM-YYYY\t\t Time: HH:MM:SS", font=("times new roman", 15), bg="#4b100a", fg="white")
+		self.lbl_clock = Label(self.root, text="Welcome | King's Power Tech Point Of Sales\t\t Date: DD-MM-YYYY\t\t Time: HH:MM:SS", font=("times new roman", 15), bg="#4b100a", fg="white")
 		self.lbl_clock.place(x=0, y=70, relwidth=1, height=30)
 
 		#==Product Frames======
@@ -119,7 +128,7 @@ class BillClass:
 		#==Calculator and Cart frame=======
 		Cal_Cart_Frame=Frame(self.root, bd=2, relief=RIDGE, bg="white")
 		Cal_Cart_Frame.place(x=420, y=190, width=530, height=360)
-		
+		self.var_contact.set("+234")
 		#==Calculator Frame==
 		self.var_cal_input=StringVar()
 
@@ -328,6 +337,10 @@ class BillClass:
 		self.new_win=Toplevel(self.root)
 		self.new_obj=creditClass(self.new_win)
 
+	def sms(self):
+		self.new_win=Toplevel(self.root)
+		self.new_obj=smsClass(self.new_win)
+
 #==========ALL FUNCTIONS FOR CALC====================================
 	def get_input(self, num):
 		xnum=self.var_cal_input.get()+str(num)
@@ -484,9 +497,26 @@ class BillClass:
 			fp.close()
 			messagebox.showinfo('Saved', "Bill Generated and Saved Successfully", parent=self.root)
 			self.chk_print=1
+			self.add_customer()
 			#messagebox.showerror("Error", "Fill in NetPay and other Transaction info")
 			
-	
+	def add_customer(self):
+		con = sqlite3.connect(database=r'ims.db')
+		cur = con.cursor()
+		try:
+			if self.var_cname.get()=="" or self.var_contact.get()=="":
+				pass
+			else:
+				cur.execute("INSERT OR REPLACE INTO customer(name, number) values(?,?)",(
+											
+											self.var_cname.get(),
+											self.var_contact.get()
+											
+				))
+				con.commit()
+		except Exception as ex:
+			messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
+
 
 
 	def bill_top(self):
@@ -566,7 +596,7 @@ class BillClass:
 	def clear_all(self):
 		del self.cart_list[:]
 		self.var_cname.set("")
-		self.var_contact.set("")
+		self.var_contact.set("+234")
 		self.var_netpay.set("")
 		self.var_pay_method.set("")
 		self.var_bank_name.set("")

@@ -310,7 +310,7 @@ class productClass:
 			if self.var_searchby.get()=="Select":
 				messagebox.showerror("Error", "Please Choose a Search Option from the Dropdown Menu", parent=self.root)
 			elif self.var_searchtxt.get()=="":
-				messagebox.showerror("Error", "Search input required")
+				messagebox.showerror("Error", "Search input required", parent=self.root)
 			else:
 				cur.execute("SELECT * FROM product WHERE "+self.var_searchby.get()+" Like '%"+self.var_searchtxt.get()+"%'")
 				rows=cur.fetchall()

@@ -17,6 +17,9 @@ def create_db():
 	cur.execute("CREATE TABLE IF NOT EXISTS credit(name text PRIMARY KEY, product text, qty text, price text, total text, paydate text)")
 	con.commit()
 
+	cur.execute("CREATE TABLE IF NOT EXISTS customer(cuid INTEGER PRIMARY KEY AUTOINCREMENT, name text, number text, UNIQUE(number))")
+	con.commit()
+
 
 
 create_db()

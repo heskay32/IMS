@@ -61,8 +61,8 @@ class salesClass:
 		self.Sales_List.bind("<ButtonRelease-1>", self.get_data)
 
 		#===Image=====
-		self.bill_image=Image.open("images/sales.png")
-		self.bill_image=self.bill_image.resize((380,310), Image.ANTIALIAS)
+		self.bill_image=Image.open("images/resize2.png")
+		self.bill_image=self.bill_image.resize((388,372), Image.ANTIALIAS)
 		self.bill_image=ImageTk.PhotoImage(self.bill_image)
 
 		#==Image Label=====

@@ -58,10 +58,8 @@ class categoryClass:
 		self.show()#display everything in the employee table inside the treeview frame.
 
 		#===images======
-		self.im1=Image.open("images/distribution.png")
-		self.im1=self.im1.resize((615,246), Image.ANTIALIAS)
-		self.im1=ImageTk.PhotoImage(self.im1)
-
+		self.im1=PhotoImage(file="images/category2.png")
+		
 		self.lbl_im1=Label(self.root, image=self.im1)
 		self.lbl_im1.place(x=50, y=220)
 
